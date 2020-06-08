@@ -25,5 +25,5 @@ devtools::install_github('larslau/progmod')
 The package contains simulated ADAS-cog and MMSE data for exploration of models. Examples of how to specify models for these data are available by running
 ``` r
 library(progmod)
-demo(progmod)
+example(progmod)
 ```
