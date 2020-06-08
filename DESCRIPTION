@@ -1,0 +1,20 @@
+Package: progmod
+Type: Package
+Title: Disease progression modeling based on nonlinear mixed effects modeling
+Version: 0.1.0
+Authors@R: person("Lars Lau", "Raket", email = "progmod@larslau.dk",
+                  role = c("aut", "cre"))
+Description: Estimates population-level disease progression patterns
+    based on aligning short-term longitudinal observed patterns.
+    The model takes the form of a nonlinear mixed effect model and estimation
+    is done using maximum likelihood estimation.
+Depends: 
+    R (>= 3.5.0),
+    covBM,
+    nlme,
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Suggests:
+    ggplot2
+RoxygenNote: 7.1.0
