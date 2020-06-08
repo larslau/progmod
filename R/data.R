@@ -17,3 +17,18 @@
 #'   \item{blstatus}{Patient status at baseline (Cognitively normal/MCI/Dementia)}
 #' }
 "adas_mmse_data"
+
+
+#' Predicted disease stage at baseline for ADNI participants
+#'?AD
+#' A dataset containing the predicted disease stage (disease month) for
+#' individuals in ADNI based on their longitudinal 13-item ADAS-cog trajectories
+#' Data are based on a data cut of ADAS-cog scores from July 2019.
+#'
+#' @format A data frame with 2130 rows and 3 variables:
+#' \describe{
+#'   \item{RID}{ADNI roster ID}
+#'   \item{pred_AD_month}{Predicted disease time (in months relative to the average cognitive state of the cognitively normal group)}
+#' }
+"ADNI_disease_stage_bl"
+
