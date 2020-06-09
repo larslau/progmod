@@ -166,9 +166,10 @@ GLF <- deriv(
 #'
 #'# Predict from model and visualize results
 #'adas_mmse_data$fixed_shift_mmse <- with(adas_mmse_data,
-#'                                        MCI * fixed.effects(MMSE_progmod)[2] +
-#'                                          DEM * fixed.effects(MMSE_progmod)[3])
-#'pred_rand <- random.effects(MMSE_progmod)
+#'                                        fixed.effects(MMSE_progmod_glf)[3] +
+#'                                        MCI * fixed.effects(MMSE_progmod_glf)[4] +
+#'                                        DEM * fixed.effects(MMSE_progmod_glf)[5])
+#'pred_rand <- random.effects(MMSE_progmod_glf)
 #'adas_mmse_data$random_shift_mmse <- pred_rand[match(adas_mmse_data$subject_id, rownames(pred_rand)), 's.(Intercept)']
 #'
 #'

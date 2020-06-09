@@ -3,7 +3,11 @@
 \docType{data}
 \name{ADNI_disease_stage_bl}
 \alias{ADNI_disease_stage_bl}
-\title{Predicted disease stage at baseline for ADNI participants}
+\title{Predicted disease stage at baseline for ADNI participants
+?AD
+A dataset containing the predicted disease stage (disease month) for
+individuals in ADNI based on their longitudinal 13-item ADAS-cog trajectories
+Data are based on a data cut of ADAS-cog scores from July 2019.}
 \format{
 A data frame with 2130 rows and 3 variables:
 \describe{
@@ -15,6 +19,8 @@ A data frame with 2130 rows and 3 variables:
 ADNI_disease_stage_bl
 }
 \description{
+Predicted disease stage at baseline for ADNI participants
+?AD
 A dataset containing the predicted disease stage (disease month) for
 individuals in ADNI based on their longitudinal 13-item ADAS-cog trajectories
 Data are based on a data cut of ADAS-cog scores from July 2019.
