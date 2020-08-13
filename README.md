@@ -8,7 +8,7 @@ The basic idea of the model is to use patterns in data to map observed time (e.g
 
 The results shown in the animation are from the basic model presented in the paper 
 
-Raket, Lars Lau. "Disease progression modeling in Alzheimer's disease: insights from the shape of cognitive decline." *medRxiv* (2019). [DOI: 10.1101/2019.12.13.19014860](https://doi.org/10.1101/2019.12.13.19014860)
+Raket, Lars Lau. "Statistical Disease Progression Modeling in Alzheimer Disease." *Frontiers in Big Data* (2020). [DOI: 10.3389/fdata.2020.00024](https://doi.org/10.3389/fdata.2020.00024)
 
 These model predictions for ADNI are available in [data/ADNI_disease_stage_bl.txt](data/ADNI_disease_stage_bl.txt). If you use this package or data, please cite the above paper.
 
