@@ -8,9 +8,24 @@ The basic idea of the model is to use patterns in data to map observed time (e.g
 
 The results shown in the animation are from the basic model presented in the paper 
 
+<dl>
+  <dd>
 Raket, Lars Lau. "Statistical Disease Progression Modeling in Alzheimer Disease." *Frontiers in Big Data* (2020). [DOI: 10.3389/fdata.2020.00024](https://doi.org/10.3389/fdata.2020.00024)
+  </dd>
+</dl>
 
-These model predictions for ADNI are available in [data/ADNI_disease_stage_bl.txt](data/ADNI_disease_stage_bl.txt). If you use this package or data, please cite the above paper.
+These model predictions for ADNI based on the 13-item ADAS-cog scores are available in [data/ADNI_disease_stage_bl.txt](data/ADNI_disease_stage_bl.txt). If you use this package or data, please cite the above paper.
+
+## Multivariate disease progression models
+progmod supports simultaneous modeling of progression on multiple outcomes as described in the paper
+
+<dl>
+  <dd>
+Kühnel, Line, Anna-Karin Berger, Bo Markussen, and Lars Lau Raket. "Simultaneous Modelling of Alzheimer’s Disease Progression via Multiple Cognitive Scales." <em>in revision</em> (2020). 
+  </dd>
+</dl>
+
+An example of multivariate modeling is available in the documentation.
 
 ## Installation
 
@@ -27,3 +42,4 @@ The package contains simulated ADAS-cog and MMSE data for exploration of models.
 library(progmod)
 example(progmod)
 ```
+

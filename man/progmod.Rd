@@ -9,8 +9,10 @@ progmod(
   data,
   fixed,
   random,
+  groups,
   start,
   covariance = NULL,
+  weights = NULL,
   method = c("ML", "REML"),
   control = NULL,
   verbose = FALSE
@@ -43,8 +45,14 @@ right hand side of model, \code{x1+...+xm} specifying the random-effects model f
 parameters and \code{g1/.../gQ} the grouping structure (\code{Q} may be equal to \code{1}, in which
 case no / is required). The random effects formula will be repeated for all
 levels of grouping, in the case of multiple levels of grouping. Explicit specification of the
-covariance structure between random effects (e.g. using \code{pdMat}) is not possible with this
-wrapper, but can be achieved by directly specifying the model using \code{\link[nlme]{nlme}}.}
+covariance structure between random effects (e.g. using \code{pdMat}) or different formulas for
+different random effects can be specified. See \code{\link[nlme]{nlme}} for details.
+\strong{Note:} Only simple two-sided formulas are currently supported when a covariance
+structure is given (see below).}
+
+\item{groups}{an optional one-sided formula of the form \code{~ g1} specifying the partitions
+of the data over which the random effects vary. This is needed when different formulas are specified for
+different random effects.}
 
 \item{start}{A numeric vector or list of initial estimates for the fixed effects and random effects.
 If declared as a numeric vector, it is converted internally to a list with a single component fixed, given by the vector.
@@ -63,6 +71,13 @@ can be used to incorporate a fractional Brownian motion component and \code{\lin
 can be used to incorporate an integrated Ornstein-Uhlenbeck process in relation to
 a continuous variable.}
 
+\item{weights}{an optional varFunc object or one-sided formula describing the within-group heteroscedasticity structure.
+This argument is primarily used for multivariate modeling of several outcomes where different standard errors are to be expected.
+If given as a formula, it is used as the argument to varFixed, corresponding to fixed variance weights.
+See the documentation on varClasses for a description of the available varFunc classes.
+Defaults to NULL, corresponding to homoscedastic within-group errors. \strong{Note:} weighting is not currently supported
+when a covariance structure is given.}
+
 \item{method}{a character string. If "\code{REML}" the model is fit by maximizing the restricted log-likelihood.
 If "\code{ML}" the log-likelihood is maximized. Defaults to "\code{ML}".}
 
@@ -75,7 +90,10 @@ algorithm is printed. Default is \code{FALSE}.}
 An object of class "nlme" representing the nonlinear mixed effects model fit.
 }
 \description{
-This function is a wrapper for \code{\link[nlmeBM]{nlmeBM}}.
+This function fits disease-progression models to longitudinal data.
+The function fits nonlinear mixed-effects models by calling
+\code{\link[nlme]{nlme}} or \code{\link[nlmeBM]{nlmeBM}} depending on the
+model specification.
 }
 \examples{
 
@@ -169,4 +187,61 @@ if (require(ggplot2)) {
    geom_line(aes(group = subject_id, color = blstatus)) +
    xlab('Months since baseline')
 }
+
+#
+
+# Stack data to long format
+tmp1 <- adas_mmse_data[, c('subject_id', 'Month_bl', 'CN', 'MCI', 'DEM', 'ADAS13')]
+names(tmp1)[6] <- 'value'
+tmp1$scale <- 'ADAS13'
+
+tmp2 <- adas_mmse_data[, c('subject_id', 'Month_bl', 'CN', 'MCI', 'DEM', 'MMSE')]
+names(tmp2)[6] <- 'value'
+tmp2$scale <- 'MMSE'
+
+# Long data
+adas_mmse_data_long <- na.omit(rbind(tmp1, tmp2))
+adas_mmse_data_long$scale <- factor(adas_mmse_data_long$scale)
+
+# Remove temporary files
+rm(tmp1, tmp2)
+
+# Fit multivariate exponential model
+fixed_start_coef <- c(l.scaleADAS13 = 0.5,
+                     l.scaleMMSE = -0.1,
+                     s.MCI = 70,
+                     s.DEM = 150,
+                     g.scaleADAS13 = 3.5,
+                     g.scaleMMSE = 3,
+                     v.scaleADAS13 = 10,
+                     v.scaleMMSE = 30)
+
+multi_progmod_glf <- progmod(value ~ exp_model(Month_bl, l, s, g, v),
+                            data = adas_mmse_data_long,
+                            fixed = list(l ~ scale + 0,
+                                         s ~ MCI + DEM + 0,
+                                         g ~ scale + 0,
+                                         v ~ scale + 0),
+                            random = list(s ~ 1,
+                                          v ~ scale),
+                            groups = ~ subject_id,
+                            start = fixed_start_coef,
+                            weights = varIdent(form = ~ 1 | scale))
+
+# Predict from model and compare to univariate models
+adas_mmse_data$fixed_shift_multi <- with(adas_mmse_data,
+                                        MCI * fixed.effects(multi_progmod_glf)[3] +
+                                          DEM * fixed.effects(multi_progmod_glf)[4])
+pred_rand <- random.effects(multi_progmod_glf)
+adas_mmse_data$random_shift_multi <- pred_rand[match(adas_mmse_data$subject_id, rownames(pred_rand)), 's.(Intercept)']
+
+
+# Correlations between predicted disease months
+with(adas_mmse_data, cor(cbind(fixed_shift_adas + random_shift_adas,
+                              fixed_shift_mmse + random_shift_mmse,
+                              fixed_shift_multi + random_shift_multi), method = 'spearman'))
+
+
+
+
 }
