@@ -10,7 +10,7 @@ The results shown in the animation are from the basic model presented in the pap
 
 <dl>
   <dd>
-Raket, Lars Lau. "Statistical Disease Progression Modeling in Alzheimer Disease." <em>Frontiers in Big Data</em> (2020). [DOI: 10.3389/fdata.2020.00024](https://doi.org/10.3389/fdata.2020.00024)
+Raket, Lars Lau. "Statistical Disease Progression Modeling in Alzheimer Disease." <em>Frontiers in Big Data</em> (2020). <a href="https://doi.org/10.3389/fdata.2020.00024">DOI: 10.3389/fdata.2020.00024</a>
   </dd>
 </dl>
 
