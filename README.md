@@ -21,7 +21,7 @@ progmod supports simultaneous modeling of progression on multiple outcomes as de
 
 <dl>
   <dd>
-Kühnel, Line, Anna-Karin Berger, Bo Markussen, and Lars Lau Raket. "Simultaneous Modelling of Alzheimer’s Disease Progression via Multiple Cognitive Scales." <em>in revision</em> (2020). 
+Kühnel, Line, Anna-Karin Berger, Bo Markussen, and Lars Lau Raket. "Simultaneous Modelling of Alzheimer’s Disease Progression via Multiple Cognitive Scales." <em>Statistics in Medicine</em> (2021). <a href="https://doi.org/10.1002/sim.8932">DOI: 10.1002/sim.8932</a>
   </dd>
 </dl>
 
